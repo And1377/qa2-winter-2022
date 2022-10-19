@@ -10,6 +10,7 @@ firstItem.setBrand("Nike");
         System.out.println("Brand is:");
         System.out.println(firstItem.getBrand());
     }
-    Keyboard secondItem = new Keyboard();
 
+    Keyboard secondItem = new Keyboard();
+//secondItem
 }
