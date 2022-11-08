@@ -24,6 +24,7 @@ public class ObjectPracticeMy {
         BluetoothSpeaker thirdItem = new BluetoothSpeaker();
         thirdItem.setColour("Black");
         thirdItem.setBrandName("Bose");
+        thirdItem.setWeight(250);
         System.out.println("Brand is:");
         System.out.println(thirdItem.getBrandName());
         System.out.println("Colour is:");
