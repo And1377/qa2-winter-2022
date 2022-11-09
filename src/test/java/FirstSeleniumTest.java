@@ -32,7 +32,7 @@ public class FirstSeleniumTest {
     private final By NUMBER_OF_SEATS = By.xpath("//*[@id='filter-number-of-seats']/label[1]");
     private final By RENTAL_CONDITIONS_FIRST_PANEL = By.xpath("//*[@id='car-box-container']/div[1]//div[contains(@class, 'rc-link')]");
     private final By RENTAL_VIEW_FOR_FIRST_PANEL = By.xpath("//*[@id='car-box-container']/div[1]//a[contains(@class, 'btn btn-book submit click-on-car selected-car prevent-loading instant')]");
-    private final By PARTIAL_PREPAYMENT = By.xpath(".//*[contains(@class, 'dc-ui badge badge-medium badge-blue')]");
+    private final By PARTIAL_PREPAYMENT = By.xpath("//*[@id='car-box-container']/div[2]//span[contains(@class, 'dc-ui badge badge-medium badge-blue')]");
     private final By CAR_SCORE_FOR_SECOND_PANEL_BOX = By.xpath("//*[@id='car-box-container']/div[2]//div[contains(@class, 'supplier-rating')]");
 
 
