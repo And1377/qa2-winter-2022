@@ -19,6 +19,7 @@ public class FirstSeleniumTest {
     private final By SEARCH_NOW_BTN = By.id("location-submit");
     private final By COUNTRY_OF_RESIDENCE_LATVIA_BTN = By.id("sb-country");
     private final By CAROUSEL_TESTIMONIALS_ARROW_LEFT = By.xpath(".//*[@id='review-arrow-left']/div/div");
+    private final By CUSTOMER_TESTIMONIALS_FOURTH_PANEL = By.xpath("//*[@id='tp-widget-reviews']/div[4]");
     private final By WE_COMPARE_PRICES_HEADING = By.xpath(".//h2[text()='We compare car rental prices, you save!']");
 //second page-----------
     private final By SMALL_CARS = By.xpath(".//*[contains(@class, 'car-top-filter-box')]/div/div[1]");
@@ -34,7 +35,10 @@ public class FirstSeleniumTest {
     private final By RENTAL_VIEW_FOR_FIRST_PANEL = By.xpath("//*[@id='car-box-container']/div[1]//a[contains(@class, 'btn btn-book submit click-on-car selected-car prevent-loading instant')]");
     private final By PARTIAL_PREPAYMENT = By.xpath("//*[@id='car-box-container']/div[2]//span[contains(@class, 'dc-ui badge badge-medium badge-blue')]");
     private final By CAR_SCORE_FOR_SECOND_PANEL_BOX = By.xpath("//*[@id='car-box-container']/div[2]//div[contains(@class, 'supplier-rating')]");
-
+//loading pale*----------
+    private final By LOADING_ANIMATION_CIRCLES = By.xpath(".//*div[contains(@class, 'lds-ellipsis v2')]");
+    private final By WE_ARE_CURRENTLY_SEARCHING_TXT = By.xpath("//*[@id='main-wrapper-body']//div[contains(@class, 'mb-8 text-24 text-bold text-center')]");
+    private final By FOR_THE_BEST_TXT = By.xpath("//*[@id='main-wrapper-body']//div[contains(@class, 'mb-24 text-center')]");
 
     @Test
     public void openHomePageCheck() {
