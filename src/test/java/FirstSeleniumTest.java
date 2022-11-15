@@ -26,7 +26,7 @@ public class FirstSeleniumTest {
     private final By CUSTOMER_TESTIMONIALS = By.xpath(".//div[@id='tp-widget-reviews']/div");
     private final By WE_COMPARE_PRICES_HEADING = By.xpath(".//div[@class = 'col-12']/h2");
 //second page-----------
-    private final By SMALL_CARS = By.xpath(".//div[@class ='car-top-filter-item car-groups-item filtering-event init']");
+    private final By SMALL_CARS = By.xpath(".//div[contains(@class, 'car-top-filter-item')]");
     private final By CAR_SELECTION_SLIDER_BTN_RIGHT = By.xpath(".//*[contains(@class, 'car-top-filter-control next')]");
     private final By SHOWN_CARS_ON_PAGE = By.xpath(".//*[contains(@class, 'showing in-list')]/span[1]");
     private final By SORT_BY_PRICE_BTN_RIGHT = By.xpath(".//*[contains(@class, 'dc-ui dropdown-toggle text-blue-500')]");
