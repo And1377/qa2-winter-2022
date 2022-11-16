@@ -19,26 +19,28 @@ public class FirstSeleniumTest {
     private final By CURRENCY_SELECTOR = By.id("currentCurrency");
     private final By LOGIN_BTN = By.className("trigger-login-modal");
     private final By HOME_CAPTION = By.xpath("//div[@class ='home-caption']");
-    private final By PICK_UP_DATE_SELECTING = By.xpath("//div[@class='fake-field clearfix']");
+    private final By PICK_UP_DATE_SELECTING = By.xpath(".//div[@class='fake-field clearfix']");
     private final By SEARCH_NOW_BTN = By.id("location-submit");
     private final By COUNTRY_OF_RESIDENCE_LATVIA_BTN = By.id("sb-country");
-    private final By CAROUSEL_TESTIMONIALS_ARROWS = By.xpath(".//div[@id='review-arrow-left']/div[2]");
+    private final By CAROUSEL_TESTIMONIALS_ARROWS = By.xpath(".//div[@class = 'svg-slider-arrow']");
     private final By CUSTOMER_TESTIMONIALS = By.xpath(".//div[@id='tp-widget-reviews']/div");
-    private final By WE_COMPARE_PRICES_HEADING = By.xpath(".//div[@class = 'col-12']/h2");
+    private final By FIRST_PAGE_H2_HEADINGS = By.xpath(".//div[@class = 'col-12']/h2");
 //second page-----------
-    private final By SMALL_CARS = By.xpath(".//div[contains(@class, 'car-top-filter-item')]");
-    private final By CAR_SELECTION_SLIDER_BTN_RIGHT = By.xpath(".//*[contains(@class, 'car-top-filter-control next')]");
-    private final By SHOWN_CARS_ON_PAGE = By.xpath(".//*[contains(@class, 'showing in-list')]/span[1]");
-    private final By SORT_BY_PRICE_BTN_RIGHT = By.xpath(".//*[contains(@class, 'dc-ui dropdown-toggle text-blue-500')]");
-    private final By CAR_DESCRIPTION_SECTION_BAG = By.xpath("//*[@id='car-box-container']/div[1]//li[2]/span[text()='1 bag']");
+    private final By CAR_TYPE_FILTER_TOP = By.xpath(".//div[contains(@class, 'car-top-filter-item')]");
+    private final By CAR_SELECTION_SLIDER_BTN_RIGHT = By.xpath(".//div[@class = 'car-top-filter-control next']");
+    private final By SHOWN_CARS_ON_PAGE = By.xpath(".//span[@class = 'showing-cars']");
+    private final By SORT_BY_PRICE_BTN_RIGHT = By.xpath(".//div[@class = 'dc-ui dropdown inline-block']");
+
+    private final By CAR_DESCRIPTION_SECTION_BAG = By.xpath(".//ul[contains(@class, 'dc-list-md text-14')]/li");
     private final By SPECIAL_OFFERS_LEFT_COLUMN = By.xpath(".//div[@class='flt-type'][1]");
-    private final By CAR_SPECIFICATIONS_AIR_CONDITIONING_PRICE = By.xpath("//*[@id='filter-air-conditioning']/label/span");
-    private final By CAR_SPECIFICATIONS_FUEL_TYPE = By.xpath("//*[@id='filter-fuel-type']/label[2]");
-    private final By NUMBER_OF_SEATS = By.xpath("//*[@id='filter-number-of-seats']/label[1]");
-    private final By RENTAL_CONDITIONS_FIRST_PANEL = By.xpath("//*[@id='car-box-container']/div[1]//div[contains(@class, 'rc-link')]");
-    private final By RENTAL_VIEW_FOR_FIRST_PANEL = By.xpath("//*[@id='car-box-container']/div[1]//a[contains(@class, 'btn btn-book submit click-on-car selected-car prevent-loading instant')]");
-    private final By PARTIAL_PREPAYMENT = By.xpath("//*[@id='car-box-container']/div[2]//span[contains(@class, 'dc-ui badge badge-medium badge-blue')]");
-    private final By CAR_SCORE_FOR_SECOND_PANEL_BOX = By.xpath("//*[@id='car-box-container']/div[2]//div[contains(@class, 'supplier-rating')]");
+    private final By CAR_SPECIFICATIONS_PRICE = By.xpath(".//span[@class = 'min-price']");
+    private final By CAR_SPECIFICATIONS_FUEL_TYPE = By.xpath(".//div[@id='filter-fuel-type']/label");
+    private final By NUMBER_OF_SEATS = By.xpath(".//div[@id='filter-number-of-seats']/label");
+
+    private final By RENTAL_CONDITIONS = By.xpath(".//a[contains(@class, 'search-index')]");
+    private final By RENTAL_VIEW_BTN = By.xpath(".//a[contains(@class, 'btn')]");
+    private final By PARTIAL_PREPAYMENT = By.xpath(".//span[contains(@class, 'dc-ui')]");
+    private final By CAR_SCORE = By.xpath(".//div[@class = 'supplier-rating']");
 //loading page*----------
     private final By LOADING_ANIMATION_CIRCLES = By.xpath(".//*div[contains(@class, 'lds-ellipsis v2')]");
     private final By WE_ARE_CURRENTLY_SEARCHING_TXT = By.xpath("//*[@id='main-wrapper-body']//div[contains(@class, 'mb-8 text-24 text-bold text-center')]");
