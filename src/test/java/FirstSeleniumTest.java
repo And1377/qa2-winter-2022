@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -6,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.openqa.selenium.NoSuchElementException;
 import java.time.Duration;
 import java.util.List;
 
@@ -58,6 +59,16 @@ public class FirstSeleniumTest {
         clickOnCountry(country);
         //wait.until(ExpectedConditions.elementToBeClickable(LATVIA_COUNTRY_BTN));
         //browser.findElement(LATVIA_COUNTRY_BTN).click();
+final By FILTER_OPTION  = By.xpath(".//label[contains(@class, 'my-checkbox')]");
+    for (WebElement we : browser.findElements(FILTER_OPTION)) {
+        if (we.getAttribute("data-text").equals("Honda")) {
+            we.click();
+            break;
+        }
+
+    }
+
+
 
     }
     private WebDriver browser;
@@ -76,5 +87,76 @@ public class FirstSeleniumTest {
         }
 
         Assertions.assertTrue(isCountryFound, "Country not Found!");
+
+//        @AfterEach
+//                public void closeBrowser() {
+//            browser.close();
+       // }
+
     }
+
+
+
+    //=================================================================Amazon test start============
+    private final By AMAZON_ACCEPT_COOKIES_BTN = By.id("sp-cc-accept");
+    private final By AMAZON_CONTINUE_BTN = By.xpath(".//input[@data-action-type = 'DISMISS']");
+    private final By AMAZON_MAIN_MENU_ITEM = By.xpath(".//div[@id = 'nav-xshop']/a");
+
+    private void openMenuItem(String itemName) {
+        List<WebElement> menuItems = browser.findElements(AMAZON_MAIN_MENU_ITEM);
+        for (WebElement we: menuItems) {
+            if (we.getText().equals(itemName)) {
+                we.click();
+                break;
+            }
+        }
+    }
+    private void closeAllMessages() {
+        wait.until(ExpectedConditions.elementToBeClickable(AMAZON_ACCEPT_COOKIES_BTN));
+        browser.findElement(AMAZON_ACCEPT_COOKIES_BTN).click();
+
+        wait.until(ExpectedConditions.elementToBeClickable(AMAZON_CONTINUE_BTN));
+        browser.findElement(AMAZON_CONTINUE_BTN).click();
+    }
+
+    @Test
+    public void amazonTest() {
+        //Test Data
+        String menuItemToSelect = "Best Sellers";
+
+        System.setProperty("webdriver.chrome.driver", "C://chromedriver.exe");
+        browser = new ChromeDriver();
+        browser.manage().window().maximize();
+        browser.get("https://www.amazon.de/");
+
+        wait = new WebDriverWait(browser, Duration.ofSeconds(10));
+
+        //closeAllMessages();
+        //openMenuItem(menuItemToSelect);
+
+        try {
+            browser.findElement(ACCEPT_COOKIES_BTN).click();
+        } catch (NoSuchElementException e) {
+
+        }
+
+    }
+
+    @Test
+    public void anotherAmazonTest() {
+        //Test Data
+        String menuItemToSelect = "New Releases";
+
+        System.setProperty("webdriver.chrome.driver", "C://chromedriver.exe");
+        browser = new ChromeDriver();
+        browser.manage().window().maximize();
+        browser.get("http://amazon.de");
+
+        wait = new WebDriverWait(browser, Duration.ofSeconds(10));
+
+        closeAllMessages();
+        openMenuItem(menuItemToSelect);
+
+    }
+
 }
