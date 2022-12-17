@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -23,6 +24,9 @@ public class TicketsTests {
     private final By CHILDREN = By.id("children");
     private final By BAG = By.id("bugs");
     private final By FLIGHT = By.id("flight");
+    private final By DESTANATION_FROM = By.xpath(".//span[@class = 'bTxt'][1]");
+    private final By DESTANATION_TO = By.xpath(".//span[@class = 'bTxt'][2]");
+    private final By GET_PRICE_BTN = By.xpath(".//div[@id= 'fullForm']/span[8]");
 
 
 
@@ -42,20 +46,33 @@ public class TicketsTests {
         select(FROM, "RIX");
         select(TO,"SFO");
 
+        browser.findElement(GO_BTN).click();
+        //Assertions.assertEquals("RIX", DESTANATION_FROM), "not found");
+
 //        Select airportFrom = new Select(browser.findElement(FROM));
 //        airportFrom.selectByValue("RIX");
 //
 //        Select airportTo = new Select(browser.findElement(TO));
 //        airportTo.selectByValue("SFO");
 
-        browser.findElement(GO_BTN).click();
+
+
         type(FIRST_NAME, "First Name");
         type(LAST_NAME, "Last Name");
         type(DISCOUNT, "Discount Code");
         type(ADULTS, "3");
         type(CHILDREN, "2");
         type(BAG, "1");
-        select(FLIGHT, "13");
+        select(FLIGHT, "16");
+
+        //====================  homewok start
+        browser.findElement(GET_PRICE_BTN).click();
+        Assertions.assertEquals("RIX", browser.findElement(DESTANATION_FROM).getText());
+        Assertions.assertEquals("SFO", browser.findElement(DESTANATION_TO).getText());
+
+
+
+        //======================homework end
 
 //        browser.findElement(FIRST_NAME).clear();
 //        browser.findElement(FIRST_NAME).sendKeys("First Name");
@@ -68,12 +85,14 @@ public class TicketsTests {
         WebElement we = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         Select select = new Select(we);
         select.selectByValue(value);
-
     }
+
 
     private void type(By locator, String text) {
     WebElement input = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     input.clear();
     input.sendKeys(text);
     }
+
+    
 }
