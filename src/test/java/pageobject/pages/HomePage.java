@@ -7,10 +7,11 @@ public class HomePage {
     private final By FROM = By.id("afrom");
     private final By TO = By.id("bfrom");
     private final By GO_BTN = By.xpath(".//span[@class = 'gogogo']");
-    private BaseFunc baseFunc;
+    private BaseFunc baseFunc; //creating empty baseFunc
 
     public HomePage(BaseFunc baseFunc) {
-        this.baseFunc = baseFunc;
+        this.baseFunc = baseFunc; //we assign variable that belongs to class...
+        // and it will be equal to a variable that we get as an entrance parameter
 
     }
     public void selectAirports(String from, String to) {

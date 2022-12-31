@@ -10,7 +10,7 @@ public class TicketsTestsOnPages {
     private final String URL = "qaguru.lv:8089/tickets/";
     private final String FROM_AIRPORT = "RIX";
     private final String TO_AIRPORT = "SFO";
-    private BaseFunc baseFunc = new BaseFunc();
+    private BaseFunc baseFunc = new BaseFunc(); //https://youtu.be/4guM0Ij4Yyg?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=2885
 
     @Test
     public void successfulRegistrationTest() {
