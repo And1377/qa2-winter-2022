@@ -67,8 +67,11 @@ public class TicketsTests {
 
         //====================  homewok start
         browser.findElement(GET_PRICE_BTN).click();
-        Assertions.assertEquals("RIX", browser.findElement(DESTANATION_FROM).getText());
-        Assertions.assertEquals("SFO", browser.findElement(DESTANATION_TO).getText());
+        compare("RIX", DESTANATION_FROM);
+        compare("SFO", DESTANATION_TO);
+//        Assertions.assertEquals("RIX", browser.findElement(DESTANATION_FROM).getText());
+//        Assertions.assertEquals("SFO", browser.findElement(DESTANATION_TO).getText());
+// https://youtu.be/fm_7RFDKN0k?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=2043 working with list items
 
 
 
@@ -79,6 +82,7 @@ public class TicketsTests {
 //
 //        browser.findElement(LAST_NAME).clear();
 //        browser.findElement(LAST_NAME).sendKeys("Last Name");
+
 
     }
     private  void select(By locator, String value) {
@@ -94,5 +98,8 @@ public class TicketsTests {
     input.sendKeys(text);
     }
 
+    private void compare(String text, By locator) {
+        Assertions.assertEquals(text, browser.findElement(locator).getText());
+    }
     
 }

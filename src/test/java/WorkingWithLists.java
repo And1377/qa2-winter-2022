@@ -24,6 +24,8 @@ public class WorkingWithLists {
 
 
         //-------------FOR-------------
+        //https://youtu.be/NYe_7cmKC0s?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=2534
+
         for (int i = 0; i < students.size(); i++) {
             System.out.println(students.get(i).getFistName());
 

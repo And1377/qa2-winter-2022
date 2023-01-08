@@ -5,17 +5,21 @@ public class Student {
     private String email;
     private String phone;
 
+    //empty constructor is necessary so we can create empty object without request for filling it in
     public Student() {
 
     }
 //---------------- CONSTRUCTORS
+
+    //public Student is method
     public Student(String fistName, String lastName, String email, String phone) {
         this.fistName = fistName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
     }
-//------------------------ GETTERS/SETTERS
+
+    //------------------------ GETTERS/SETTERS
     public String getFistName() {
         return fistName;
     }
