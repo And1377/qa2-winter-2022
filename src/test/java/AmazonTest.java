@@ -17,10 +17,11 @@ public class AmazonTest {
     private final By AMAZON_LEFT_MENU_ITEM = By.xpath(".//div[@role = 'treeitem']/a");
     private final By AMAZON_BOOK_PAGE_THUMBNAILS = By.xpath(".//div[@class = 'p13n-sc-uncoverable-faceout']/a[1]");
     private final By AMAZON_BOOK_PAGE_THUMBNAIL_STARS = By.xpath(".//span[@class = 'a-icon-alt']");
-//    private final By AMAZON_ALL_COMMENTS_BTN = By.xpath(".//*[@id='cr-pagination-footer-0']/a");
+    //    private final By AMAZON_ALL_COMMENTS_BTN = By.xpath(".//*[@id='cr-pagination-footer-0']/a");
     private final By AMAZON_ALL_COMMENTS_BTN = By.xpath(".//a[@data-hook= 'see-all-reviews-link-foot']");
     private final By AMAZON_COMMENT_ITEM = By.xpath(".//div[@class = 'a-section celwidget']");
     private final By AMAZON_COMMENT_NEXT_PAGE_BTN = By.xpath(".//li[@class = 'a-last']/a");
+    private final By AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT = By.xpath(".//span[@class = 'a-icon-alt']");
 
     private WebDriver browser;
     private WebDriverWait wait; //https://www.seleniumeasy.com/selenium-tutorials/webdriver-wait-examples
@@ -38,6 +39,7 @@ public class AmazonTest {
         String menuItemToSelect = "Best Sellers";
         String menuItemLeft = "Books";
         int bookPositionNumberInTop = 4;
+        int itemPositionInTop = 4;
 
         System.setProperty("webdriver.chrome.driver", "C://chromedriver.exe");
         browser = new ChromeDriver();
@@ -49,23 +51,34 @@ public class AmazonTest {
         closeAllMessages();
         openMenuItem(menuItemToSelect, AMAZON_MAIN_MENU_ITEM);
         openMenuItem(menuItemLeft, AMAZON_LEFT_MENU_ITEM);
-        openSpecificItemByNumber(bookPositionNumberInTop, AMAZON_BOOK_PAGE_THUMBNAILS);
-        click(AMAZON_ALL_COMMENTS_BTN);
+        rememberSpecificItemStars(itemPositionInTop, AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT);
 
+        //https://youtu.be/wg0w5l-Snrw?t=4342 -- wait and Thread sleep
+        //https://youtu.be/uWnfiI9CL1g?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=1519 -- get element value
+//        String stars = browser.findElements(AMAZON_BOOK_PAGE_THUMBNAIL_STARS);
+//        System.out.println(stars);
+//        openSpecificItemByNumber(bookPositionNumberInTop, AMAZON_BOOK_PAGE_THUMBNAILS);
+//        click(AMAZON_ALL_COMMENTS_BTN);
 
-        while (!browser.findElements(AMAZON_COMMENT_NEXT_PAGE_BTN).isEmpty()){
-            System.out.println(browser.findElements(AMAZON_COMMENT_ITEM).size());
+//https://www.softwaretestingmaterial.com/stale-element-reference-exception-selenium-webdriver/
+//        while (!browser.findElements(AMAZON_COMMENT_NEXT_PAGE_BTN).isEmpty()) {
+//            System.out.println(browser.findElements(AMAZON_COMMENT_ITEM).size());
 //            click(AMAZON_COMMENT_NEXT_PAGE_BTN);
-            try {
-                click(AMAZON_COMMENT_NEXT_PAGE_BTN);
-            } catch (StaleElementReferenceException e) {
-                System.out.println("Cant click on button!");
-            }
-        }
+//
+//
+//            try {
+////                wait.until(ExpectedConditions.presenceOfElementLocated(AMAZON_COMMENT_NEXT_PAGE_BTN)).click();
+//                click(AMAZON_COMMENT_NEXT_PAGE_BTN);
+//                //https://youtu.be/uWnfiI9CL1g?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=6263
+//            } catch (StaleElementReferenceException e) {
+//                System.out.println("Cant click on button!");
+////                System.out.println(e);
+//            }
+//        }
 
 //        try {
 //            browser.findElement(AMAZON_ACCEPT_COOKIES_BTN).click();
-//        } catch (NoSuchElementException e) {
+//        } catch (StaleElementReferenceException e) {
 //
 //        }
 
@@ -75,9 +88,9 @@ public class AmazonTest {
     //https://youtu.be/uWnfiI9CL1g?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=3746
     private void openMenuItem(String itemName, By locator) {
         List<WebElement> menuItems = browser.findElements(locator);
-//        menuItems - list that we are checking
 //        WebElement we - variable where we will store each list variable
-        for (WebElement we: menuItems) {
+//        menuItems - list that we are checking
+        for (WebElement we : menuItems) {
             if (we.getText().equals(itemName)) {
                 we.click();
                 break;
@@ -86,11 +99,16 @@ public class AmazonTest {
     }
 
     private void openSpecificItemByNumber(int bookPositionNumberInTop, By locator) {
-      List<WebElement> productItems = browser.findElements(locator);
+        List<WebElement> productItems = browser.findElements(locator);
         productItems.get(bookPositionNumberInTop - 1).click();
 //        System.out.println(productItems.size());
     }
 
+    private void rememberSpecificItemStars(int itemPositionInTop, By locator) {
+        List<WebElement> productItems = browser.findElements(locator);
+//        productItems.get(itemPositionInTop - 1).getText();
+        System.out.println(productItems.get(itemPositionInTop - 1).getText());
+    }
 
     private void closeAllMessages() {
         wait.until(ExpectedConditions.elementToBeClickable(AMAZON_ACCEPT_COOKIES_BTN)); //https://habr.com/ru/post/443754/
@@ -103,17 +121,18 @@ public class AmazonTest {
     private void click(By locator) {
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
-    private void select(By locator, String value) {
-        WebElement we = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        Select select = new Select(we);
-        select.selectByValue(value);
-    }
+
+//    private void select(By locator, String value) {
+//        WebElement we = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+//        Select select = new Select(we);
+//        select.selectByValue(value);
+//    }
 //    private void waitForElementsCountToBe(By locator, int count) {
 //        wait.until(ExpectedConditions.numberOfElementsToBe(locator, count));
 //    }
 
-//    @AfterEach
-//    public void closeBrowser() {
+    @AfterEach
+    public void closeBrowser() {
 //        browser.close();
-//    }
+    }
 }
