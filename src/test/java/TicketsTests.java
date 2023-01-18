@@ -41,7 +41,6 @@ public class TicketsTests {
         browser.manage().window().maximize();
         browser.get("http://www.qaguru.lv:8089/tickets/");
 
-//        wait = new WebDriverWait(browser, Duration.ofSeconds(10));
         wait = new WebDriverWait(browser, Duration.ofSeconds(10));
 
         select(FROM, "RIX");

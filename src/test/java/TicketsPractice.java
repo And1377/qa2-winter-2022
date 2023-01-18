@@ -22,16 +22,16 @@ public class TicketsPractice {
     private final By GO_BTN = By.xpath(".//span[@class = 'gogogo']");
 
 private WebDriver browser;
-private WebDriver wait;
+private WebDriverWait wait;
 
 
     @Test
     public void reservationCheck2() {
         System.setProperty("webdriver.chrome.driver", "C://chromedriver.exe");
-        WebDriver browser = new ChromeDriver();
+        browser = new ChromeDriver();
         browser.manage().window().maximize();
         browser.get("http://www.qaguru.lv:8089/tickets/");
-        WebDriverWait wait = new WebDriverWait(browser, Duration.ofSeconds(10));
+        wait = new WebDriverWait(browser, Duration.ofSeconds(10));
 
         //https://youtu.be/BFOJYQ-BWz0?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=1725
 
@@ -43,5 +43,11 @@ private WebDriver wait;
 
         browser.findElement(GO_BTN).click();
 
+    }
+
+    private void type(By locator, String text) {
+        WebElement input = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        input.clear();
+        input.sendKeys(text);
     }
 }

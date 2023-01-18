@@ -51,7 +51,7 @@ public class AmazonTest {
         closeAllMessages();
         openMenuItem(menuItemToSelect, AMAZON_MAIN_MENU_ITEM);
         openMenuItem(menuItemLeft, AMAZON_LEFT_MENU_ITEM);
-        rememberSpecificItemStars(itemPositionInTop, AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT);
+//        rememberSpecificItemStars(itemPositionInTop, AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT);
 
         //https://youtu.be/wg0w5l-Snrw?t=4342 -- wait and Thread sleep
         //https://youtu.be/uWnfiI9CL1g?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=1519 -- get element value
@@ -61,26 +61,26 @@ public class AmazonTest {
 //        click(AMAZON_ALL_COMMENTS_BTN);
 
 //https://www.softwaretestingmaterial.com/stale-element-reference-exception-selenium-webdriver/
-//        while (!browser.findElements(AMAZON_COMMENT_NEXT_PAGE_BTN).isEmpty()) {
-//            System.out.println(browser.findElements(AMAZON_COMMENT_ITEM).size());
-//            click(AMAZON_COMMENT_NEXT_PAGE_BTN);
+        while (!browser.findElements(AMAZON_COMMENT_NEXT_PAGE_BTN).isEmpty()) {
+            System.out.println(browser.findElements(AMAZON_COMMENT_ITEM).size());
+            click(AMAZON_COMMENT_NEXT_PAGE_BTN);
 //
 //
-//            try {
-////                wait.until(ExpectedConditions.presenceOfElementLocated(AMAZON_COMMENT_NEXT_PAGE_BTN)).click();
-//                click(AMAZON_COMMENT_NEXT_PAGE_BTN);
-//                //https://youtu.be/uWnfiI9CL1g?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=6263
-//            } catch (StaleElementReferenceException e) {
-//                System.out.println("Cant click on button!");
-////                System.out.println(e);
-//            }
-//        }
+            try {
+//                wait.until(ExpectedConditions.presenceOfElementLocated(AMAZON_COMMENT_NEXT_PAGE_BTN)).click();
+                click(AMAZON_COMMENT_NEXT_PAGE_BTN);
+                //https://youtu.be/uWnfiI9CL1g?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=6263
+            } catch (StaleElementReferenceException e) {
+                System.out.println("Cant click on button!");
+//                System.out.println(e);
+            }
+        }
 
-//        try {
-//            browser.findElement(AMAZON_ACCEPT_COOKIES_BTN).click();
-//        } catch (StaleElementReferenceException e) {
-//
-//        }
+        try {
+            browser.findElement(AMAZON_ACCEPT_COOKIES_BTN).click();
+        } catch (StaleElementReferenceException e) {
+
+        }
 
     }
 
