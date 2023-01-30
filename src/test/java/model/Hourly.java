@@ -4,28 +4,33 @@ import io.cucumber.core.internal.com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class Current {
+public class Hourly {
     private long dt;
-    private long sunrise;
-    private long sunset;
-    private short temp;
+    private int temp;
     @JsonProperty("feels_like")
     private int feelsLike;
-    private int pressure;
-    private int humidity;
+
+    private short pressure;
+    private short humidity;
     @JsonProperty("dew_point")
     private int dewPoint;
+
     private int uvi;
-    private short clouds;
+    private int clouds;
     private int visibility;
     @JsonProperty("wind_speed")
-    private int windSpeed;
+    private short windSpeed;
+
     @JsonProperty("wind_deg")
     private int windDeg;
+
     @JsonProperty("wind_gust")
     private int windGust;
+
     @JsonProperty("weather")
     private List<Weather> weathers;
+
+    private double pop;
 
     public long getDt() {
         return dt;
@@ -35,27 +40,11 @@ public class Current {
         this.dt = dt;
     }
 
-    public long getSunrise() {
-        return sunrise;
-    }
-
-    public void setSunrise(long sunrise) {
-        this.sunrise = sunrise;
-    }
-
-    public long getSunset() {
-        return sunset;
-    }
-
-    public void setSunset(long sunset) {
-        this.sunset = sunset;
-    }
-
-    public short getTemp() {
+    public int getTemp() {
         return temp;
     }
 
-    public void setTemp(short temp) {
+    public void setTemp(int temp) {
         this.temp = temp;
     }
 
@@ -67,19 +56,19 @@ public class Current {
         this.feelsLike = feelsLike;
     }
 
-    public int getPressure() {
+    public short getPressure() {
         return pressure;
     }
 
-    public void setPressure(int pressure) {
+    public void setPressure(short pressure) {
         this.pressure = pressure;
     }
 
-    public int getHumidity() {
+    public short getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(int humidity) {
+    public void setHumidity(short humidity) {
         this.humidity = humidity;
     }
 
@@ -99,11 +88,11 @@ public class Current {
         this.uvi = uvi;
     }
 
-    public short getClouds() {
+    public int getClouds() {
         return clouds;
     }
 
-    public void setClouds(short clouds) {
+    public void setClouds(int clouds) {
         this.clouds = clouds;
     }
 
@@ -115,11 +104,11 @@ public class Current {
         this.visibility = visibility;
     }
 
-    public int getWindSpeed() {
+    public short getWindSpeed() {
         return windSpeed;
     }
 
-    public void setWindSpeed(int windSpeed) {
+    public void setWindSpeed(short windSpeed) {
         this.windSpeed = windSpeed;
     }
 
@@ -145,5 +134,13 @@ public class Current {
 
     public void setWeathers(List<Weather> weathers) {
         this.weathers = weathers;
+    }
+
+    public double getPop() {
+        return pop;
+    }
+
+    public void setPop(double pop) {
+        this.pop = pop;
     }
 }
