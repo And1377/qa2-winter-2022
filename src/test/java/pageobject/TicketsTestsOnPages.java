@@ -14,8 +14,11 @@ public class TicketsTestsOnPages {
 
     @Test
     public void successfulRegistrationTest() {
-        Passenger passenger = new Passenger("TestName", "TestSurname", "AAAAAAAAA",
-                2, 1, 4, "16-05-2018");
+        //Passenger passenger = new Passenger("TestName", "TestSurname", "AAAAAAAAA",
+                //2, 1, 4, "16-05-2018");
+
+        Passenger passenger = new Passenger("Arturs", "Sivuhins", "MMM", 2,
+                2,4, "16-05-2018");
 
         baseFunc.openUrl(URL);
         HomePage homePage = new HomePage(baseFunc);
@@ -24,6 +27,8 @@ public class TicketsTestsOnPages {
         PassengerInfoPage infoPage = new PassengerInfoPage(baseFunc);
         //...
         infoPage.fillInPassengerInfo(passenger);
+
+        //https://youtu.be/fm_7RFDKN0k?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=3522
 
         Assertions.assertEquals(passenger.getFirstName(), infoPage.getPassengerName(), "Wrong name!");
         Assertions.assertEquals(FROM_AIRPORT, infoPage.getFirstFromAirport(), "Error msg!");

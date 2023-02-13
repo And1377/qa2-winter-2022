@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -51,36 +52,43 @@ public class AmazonTest {
         closeAllMessages();
         openMenuItem(menuItemToSelect, AMAZON_MAIN_MENU_ITEM);
         openMenuItem(menuItemLeft, AMAZON_LEFT_MENU_ITEM);
-//        rememberSpecificItemStars(itemPositionInTop, AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT);
+       // rememberSpecificItemStars(itemPositionInTop, AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT);
+        //System.out.println(browser.findElement(AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT).getAttribute("textContent"));
+        String stars = browser.findElements(AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT).get(3).getAttribute("textContent").substring(0,3);
+        openSpecificItemByNumber(bookPositionNumberInTop, AMAZON_BOOK_PAGE_THUMBNAILS);
+        String starsInDescription = browser.findElement(AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT).getAttribute("textContent").substring(0,3);
+        Assertions.assertEquals(stars, starsInDescription);
+
+
+        //System.out.println(findElements(AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT).get(3).getAttribute("textContent").substring(0,3));
 
         //https://youtu.be/wg0w5l-Snrw?t=4342 -- wait and Thread sleep
         //https://youtu.be/uWnfiI9CL1g?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=1519 -- get element value
-//        String stars = browser.findElements(AMAZON_BOOK_PAGE_THUMBNAIL_STARS);
-//        System.out.println(stars);
-//        openSpecificItemByNumber(bookPositionNumberInTop, AMAZON_BOOK_PAGE_THUMBNAILS);
+
+
 //        click(AMAZON_ALL_COMMENTS_BTN);
 
 //https://www.softwaretestingmaterial.com/stale-element-reference-exception-selenium-webdriver/
-        while (!browser.findElements(AMAZON_COMMENT_NEXT_PAGE_BTN).isEmpty()) {
-            System.out.println(browser.findElements(AMAZON_COMMENT_ITEM).size());
-            click(AMAZON_COMMENT_NEXT_PAGE_BTN);
+//        while (!browser.findElements(AMAZON_COMMENT_NEXT_PAGE_BTN).isEmpty()) {
+//            System.out.println(browser.findElements(AMAZON_COMMENT_ITEM).size());
+//            click(AMAZON_COMMENT_NEXT_PAGE_BTN);
+////
+////
+//            try {
+////                wait.until(ExpectedConditions.presenceOfElementLocated(AMAZON_COMMENT_NEXT_PAGE_BTN)).click();
+//                click(AMAZON_COMMENT_NEXT_PAGE_BTN);
+//                //https://youtu.be/uWnfiI9CL1g?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=6263
+//            } catch (StaleElementReferenceException e) {
+//                System.out.println("Cant click on button!");
+////                System.out.println(e);
+//            }
+//        }
 //
+//        try {
+//            browser.findElement(AMAZON_ACCEPT_COOKIES_BTN).click();
+//        } catch (StaleElementReferenceException e) {
 //
-            try {
-//                wait.until(ExpectedConditions.presenceOfElementLocated(AMAZON_COMMENT_NEXT_PAGE_BTN)).click();
-                click(AMAZON_COMMENT_NEXT_PAGE_BTN);
-                //https://youtu.be/uWnfiI9CL1g?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=6263
-            } catch (StaleElementReferenceException e) {
-                System.out.println("Cant click on button!");
-//                System.out.println(e);
-            }
-        }
-
-        try {
-            browser.findElement(AMAZON_ACCEPT_COOKIES_BTN).click();
-        } catch (StaleElementReferenceException e) {
-
-        }
+//        }
 
     }
 
@@ -98,17 +106,24 @@ public class AmazonTest {
         }
     }
 
+//    private void starCounter(int itemPositionInBs, By locator) {
+//        List<WebElement> menuItems = browser.findElements(locator);
+//        for (WebElement we : menuItems) {
+//
+//        }
+//    }
+
     private void openSpecificItemByNumber(int bookPositionNumberInTop, By locator) {
         List<WebElement> productItems = browser.findElements(locator);
         productItems.get(bookPositionNumberInTop - 1).click();
 //        System.out.println(productItems.size());
     }
 
-    private void rememberSpecificItemStars(int itemPositionInTop, By locator) {
-        List<WebElement> productItems = browser.findElements(locator);
-//        productItems.get(itemPositionInTop - 1).getText();
-        System.out.println(productItems.get(itemPositionInTop - 1).getText());
-    }
+//    private void rememberSpecificItemStars(int itemPositionInTop, By locator) {
+//        List<WebElement> productItems = browser.findElements(locator);
+////        productItems.get(itemPositionInTop - 1).getText();
+//        System.out.println(productItems.get(itemPositionInTop - 1).getText());
+//    }
 
     private void closeAllMessages() {
         wait.until(ExpectedConditions.elementToBeClickable(AMAZON_ACCEPT_COOKIES_BTN)); //https://habr.com/ru/post/443754/
@@ -122,6 +137,10 @@ public class AmazonTest {
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
 
+    private List<WebElement> findElements(By locator) {
+        return browser.findElements(locator);
+    }
+
 //    private void select(By locator, String value) {
 //        WebElement we = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 //        Select select = new Select(we);
@@ -133,6 +152,6 @@ public class AmazonTest {
 
     @AfterEach
     public void closeBrowser() {
-//        browser.close();
+        //browser.close();
     }
 }

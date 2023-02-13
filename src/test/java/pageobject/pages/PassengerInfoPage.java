@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import pageobject.BaseFunc;
 import pageobject.model.Passenger;
 
+//https://youtu.be/fm_7RFDKN0k?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=577
+
 public class PassengerInfoPage {
     private final By FIRST_NAME = By.id("name");
     private final By LAST_NAME = By.id("surname");
