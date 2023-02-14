@@ -35,12 +35,13 @@ public class AmazonTest {
 //    }
 
     @Test
-    public void amazonTest() {
+    public void amazonTest() throws InterruptedException {
         //Test Data
         String menuItemToSelect = "Best Sellers";
         String menuItemLeft = "Books";
-        int bookPositionNumberInTop = 4;
-        int itemPositionInTop = 4;
+        int bookPositionNumberInTop = 5;
+        int itemPositionInTop = 5;
+        int commentCountAllPages = 0;
 
         System.setProperty("webdriver.chrome.driver", "C://chromedriver.exe");
         browser = new ChromeDriver();
@@ -52,43 +53,30 @@ public class AmazonTest {
         closeAllMessages();
         openMenuItem(menuItemToSelect, AMAZON_MAIN_MENU_ITEM);
         openMenuItem(menuItemLeft, AMAZON_LEFT_MENU_ITEM);
-       // rememberSpecificItemStars(itemPositionInTop, AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT);
-        //System.out.println(browser.findElement(AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT).getAttribute("textContent"));
-        String stars = browser.findElements(AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT).get(3).getAttribute("textContent").substring(0,3);
+        String stars = browser.findElements(AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT).get(4).getAttribute("textContent").substring(0, 3);
         openSpecificItemByNumber(bookPositionNumberInTop, AMAZON_BOOK_PAGE_THUMBNAILS);
-        String starsInDescription = browser.findElement(AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT).getAttribute("textContent").substring(0,3);
+        String starsInDescription = browser.findElement(AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT).getAttribute("textContent").substring(0, 3);
         Assertions.assertEquals(stars, starsInDescription);
-
-
-        //System.out.println(findElements(AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT).get(3).getAttribute("textContent").substring(0,3));
 
         //https://youtu.be/wg0w5l-Snrw?t=4342 -- wait and Thread sleep
         //https://youtu.be/uWnfiI9CL1g?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=1519 -- get element value
 
+        click(AMAZON_ALL_COMMENTS_BTN);
 
-//        click(AMAZON_ALL_COMMENTS_BTN);
+        while (!browser.findElements(AMAZON_COMMENT_NEXT_PAGE_BTN).isEmpty()) {
+            commentCountAllPages += browser.findElements(AMAZON_COMMENT_ITEM).size();
+            System.out.println(commentCountAllPages);
+            //System.out.println(browser.findElements(AMAZON_COMMENT_ITEM).size());
+            //https://www.w3docs.com/snippets/java/stale-element-reference-element-is-not-attached-to-the-page-document.html
 
-//https://www.softwaretestingmaterial.com/stale-element-reference-exception-selenium-webdriver/
-//        while (!browser.findElements(AMAZON_COMMENT_NEXT_PAGE_BTN).isEmpty()) {
-//            System.out.println(browser.findElements(AMAZON_COMMENT_ITEM).size());
-//            click(AMAZON_COMMENT_NEXT_PAGE_BTN);
-////
-////
+            Thread.sleep(1000);
+            click(AMAZON_COMMENT_NEXT_PAGE_BTN);
 //            try {
-////                wait.until(ExpectedConditions.presenceOfElementLocated(AMAZON_COMMENT_NEXT_PAGE_BTN)).click();
 //                click(AMAZON_COMMENT_NEXT_PAGE_BTN);
-//                //https://youtu.be/uWnfiI9CL1g?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=6263
 //            } catch (StaleElementReferenceException e) {
-//                System.out.println("Cant click on button!");
-////                System.out.println(e);
+//               click(AMAZON_COMMENT_NEXT_PAGE_BTN);
 //            }
-//        }
-//
-//        try {
-//            browser.findElement(AMAZON_ACCEPT_COOKIES_BTN).click();
-//        } catch (StaleElementReferenceException e) {
-//
-//        }
+        }
 
     }
 
