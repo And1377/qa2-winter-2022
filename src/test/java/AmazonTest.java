@@ -65,18 +65,25 @@ public class AmazonTest {
 
         while (!browser.findElements(AMAZON_COMMENT_NEXT_PAGE_BTN).isEmpty()) {
             commentCountAllPages += browser.findElements(AMAZON_COMMENT_ITEM).size();
-            System.out.println(commentCountAllPages);
+
             //System.out.println(browser.findElements(AMAZON_COMMENT_ITEM).size());
             //https://www.w3docs.com/snippets/java/stale-element-reference-element-is-not-attached-to-the-page-document.html
 
             Thread.sleep(1000);
-            click(AMAZON_COMMENT_NEXT_PAGE_BTN);
+            try {
+                click(AMAZON_COMMENT_NEXT_PAGE_BTN);
+            } catch (TimeoutException e) {
+                System.out.println(commentCountAllPages);
+            }
+            //click(AMAZON_COMMENT_NEXT_PAGE_BTN);
+
 //            try {
 //                click(AMAZON_COMMENT_NEXT_PAGE_BTN);
 //            } catch (StaleElementReferenceException e) {
 //               click(AMAZON_COMMENT_NEXT_PAGE_BTN);
 //            }
         }
+        //System.out.println(commentCountAllPages);
 
     }
 
