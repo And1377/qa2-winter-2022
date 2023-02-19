@@ -41,8 +41,9 @@ public class AmazonTest {
         //Test Data
         String menuItemToSelect = "Best Sellers";
         String menuItemLeft = "Books";
-        int bookPositionNumberInTop = 4;
-        int commentCountAllPages = -10;
+        int bookPositionNumberInTop = 5;
+        //int commentCountAllPages = -10;
+        int commentCountAllPages = 0;
 
         System.setProperty("webdriver.chrome.driver", "C://chromedriver.exe");
         browser = new ChromeDriver();
@@ -54,30 +55,33 @@ public class AmazonTest {
         closeAllMessages();
         openMenuItem(menuItemToSelect, AMAZON_MAIN_MENU_ITEM);
         openMenuItem(menuItemLeft, AMAZON_LEFT_MENU_ITEM);
-        String stars = browser.findElements(AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT).get(bookPositionNumberInTop - 1).getAttribute("textContent").substring(0, 3);
+        String itemStarScore = browser.findElements(AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT).get(bookPositionNumberInTop - 1).getAttribute("textContent").substring(0, 3);
         openSpecificItemByNumber(bookPositionNumberInTop, AMAZON_BOOK_PAGE_THUMBNAILS);
         String starsInDescription = browser.findElement(AMAZON_BEST_SELLER_SECTION_STAR_AMOUNT).getAttribute("textContent").substring(0, 3);
-        Assertions.assertEquals(stars, starsInDescription, "Star amount doesn't matches!");
+        Assertions.assertEquals(itemStarScore, starsInDescription, "Star amount doesn't matches!");
 
         //https://youtu.be/wg0w5l-Snrw?t=4342 -- wait and Thread sleep
         //https://youtu.be/uWnfiI9CL1g?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=1519 -- get element value
 
         click(AMAZON_ALL_COMMENTS_BTN);
         getReviewCount();
+        int actual =getReviewCount();
         while (!browser.findElements(AMAZON_COMMENT_NEXT_PAGE_BTN).isEmpty()) {
             commentCountAllPages += browser.findElements(AMAZON_COMMENT_ITEM).size();
             //https://www.w3docs.com/snippets/java/stale-element-reference-element-is-not-attached-to-the-page-document.html
-
+            System.out.println(commentCountAllPages);
             Thread.sleep(500);
             try {
                 click(AMAZON_COMMENT_NEXT_PAGE_BTN);
             } catch (TimeoutException e) {
+
                 commentCountAllPages += browser.findElements(AMAZON_COMMENT_ITEM).size();
+                System.out.println(commentCountAllPages +"kek");
 
             }
 
         }
-
+        commentCountAllPages += browser.findElements(AMAZON_COMMENT_ITEM).size();
         System.out.println("Actual amount of comments is: " + commentCountAllPages);
         System.out.println("Amount of comments " + getReviewCount());
         Assertions.assertEquals(getReviewCount(), commentCountAllPages, "Error- values not equal");
@@ -139,9 +143,9 @@ public class AmazonTest {
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
-    private String getReviewCount() {
+    private int getReviewCount() {
         String text = findElement(AMAZON_TOTAL_REVIEWS_COUNT).getText();
-        return StringUtils.substringBetween(text, "ratings, ", " with");
+        return Integer.parseInt(StringUtils.substringBetween(text, "ratings, ", " with"));
     }
 
 //    private void select(By locator, String value) {
