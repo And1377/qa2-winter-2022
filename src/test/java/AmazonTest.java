@@ -65,7 +65,6 @@ public class AmazonTest {
 
         click(AMAZON_ALL_COMMENTS_BTN);
         getReviewCount();
-        int actual =getReviewCount();
         while (!browser.findElements(AMAZON_COMMENT_NEXT_PAGE_BTN).isEmpty()) {
             commentCountAllPages += browser.findElements(AMAZON_COMMENT_ITEM).size();
             //https://www.w3docs.com/snippets/java/stale-element-reference-element-is-not-attached-to-the-page-document.html
