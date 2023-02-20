@@ -41,8 +41,7 @@ public class AmazonTest {
         //Test Data
         String menuItemToSelect = "Best Sellers";
         String menuItemLeft = "Books";
-        int bookPositionNumberInTop = 5;
-        //int commentCountAllPages = -10;
+        int bookPositionNumberInTop = 3;
         int commentCountAllPages = 0;
 
         System.setProperty("webdriver.chrome.driver", "C://chromedriver.exe");
@@ -65,22 +64,28 @@ public class AmazonTest {
 
         click(AMAZON_ALL_COMMENTS_BTN);
         getReviewCount();
-        while (!browser.findElements(AMAZON_COMMENT_NEXT_PAGE_BTN).isEmpty()) {
+        while (isPaginationActive()) {
             commentCountAllPages += browser.findElements(AMAZON_COMMENT_ITEM).size();
             //https://www.w3docs.com/snippets/java/stale-element-reference-element-is-not-attached-to-the-page-document.html
             System.out.println(commentCountAllPages);
-            Thread.sleep(500);
+            // Thread.sleep(500);
             try {
                 click(AMAZON_COMMENT_NEXT_PAGE_BTN);
-            } catch (TimeoutException e) {
+            } catch (WebDriverException e) {
+                if (e.getClass().equals(StaleElementReferenceException.class)) {
+                    click(AMAZON_COMMENT_NEXT_PAGE_BTN);
+                } else if (e.getClass().equals(TimeoutException.class)) {
+                    commentCountAllPages += browser.findElements(AMAZON_COMMENT_ITEM).size();
+                    System.out.println(commentCountAllPages + "kek");
+                } else {
+                    System.out.println("default");
+                }
 
-                commentCountAllPages += browser.findElements(AMAZON_COMMENT_ITEM).size();
-                System.out.println(commentCountAllPages +"kek");
 
             }
-
+            Thread.sleep(2000);
         }
-        commentCountAllPages += browser.findElements(AMAZON_COMMENT_ITEM).size();
+        // commentCountAllPages += browser.findElements(AMAZON_COMMENT_ITEM).size();
         System.out.println("Actual amount of comments is: " + commentCountAllPages);
         System.out.println("Amount of comments " + getReviewCount());
         Assertions.assertEquals(getReviewCount(), commentCountAllPages, "Error- values not equal");
@@ -132,6 +137,16 @@ public class AmazonTest {
 
     private void click(By locator) {
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+    }
+
+    private boolean isPaginationActive() {
+        try {
+            wait.until(ExpectedConditions.numberOfElementsToBe(AMAZON_COMMENT_ITEM, 10));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+
     }
 
     private List<WebElement> findElements(By locator) {
