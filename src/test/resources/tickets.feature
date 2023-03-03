@@ -11,13 +11,14 @@ Feature: Tickets reservation
       | flight_date | 14-05-2018 |
       | seat        | 27         |
 
-    And passanger info is:
+    And passenger info is:
       | first_name | Dmitry |
       | last_name  | Tester |
 
     And home page opened
 
     When we are selecting airports
+    Then we press go go go button
     Then  selected airports appears on the next page
 
     When we are filling in apassanger registration form

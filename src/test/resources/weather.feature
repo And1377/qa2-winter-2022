@@ -5,7 +5,7 @@ Feature: Weather forecast
     When we are requesting weather forecast
 
     Then coordinates are:
-      | latitude   | 39.31 |
+      | latitude  | 39.31 |
       | longitude | -74.5 |
 
     And timezone infofmation is:
