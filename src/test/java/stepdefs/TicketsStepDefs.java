@@ -58,9 +58,9 @@ public class TicketsStepDefs {
     }
 
     @When("we press go go go button")
-    public void click_gogogo_btn() {
-        baseFunc.click();
-    }
+//    public void click_gogogo_btn() {
+//        baseFunc.click();
+//    }
 
     @When("we are filling in apassanger registration form")
     public void fill_in_passenger_form() {
