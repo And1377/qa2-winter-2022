@@ -3,10 +3,8 @@ package dao;
 import model.User;
 import org.postgresql.Driver;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.List;
 
 public class UserDAO {
     private Connection connection;
@@ -22,7 +20,27 @@ public class UserDAO {
         ps.setString(1, user.getFirstName());
         ps.setString(2, user.getLatName());
         ps.setString(3, user.getEmail());
-        ps.execute();
-        ps.close();
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+//        ps.close();
+       // return rs.getLong("id");
     }
+
+    public User grtUserById(long id) throws SQLException {
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM  users WHERE id = ?");
+        ps.setLong(1, id);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+
+        User user = new User();
+        user.setId(rs.getLong("id"));
+        user.setFirstName(rs.getString("first_name"));
+        user.setLatName(rs.getString("last_name"));
+        user.setEmail(rs.getString("email"));
+
+        return user;
+    }
+//    public List<User> getUsers() {
+//
+//    }
 }

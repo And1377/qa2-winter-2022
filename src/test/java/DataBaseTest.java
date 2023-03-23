@@ -13,6 +13,8 @@ public class DataBaseTest {
         expectedUser.setLatName("tester@test.lv");
 
         UserDAO userDAO = new UserDAO();
-        userDAO.saveUser(expectedUser);
+       // long id = userDAO.saveUser(expectedUser);
+
+        //User actualUser
     }
 }

@@ -4,9 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageobject.BaseFunc;
 
 import java.time.Duration;
 
@@ -27,26 +29,25 @@ public class TicketsTests {
     private final By DESTANATION_FROM = By.xpath(".//span[@class = 'bTxt'][1]");
     private final By DESTANATION_TO = By.xpath(".//span[@class = 'bTxt'][2]");
     private final By GET_PRICE_BTN = By.xpath(".//div[@id= 'fullForm']/span[8]");
+    private final By RESPONSE_TEXT = By.id("response");
+    private final By BOOK_BTN = By.id("book2");
+    private final By SEAT_ELEMENT = By.cssSelector(".seat");
 
 
 
 
-    private WebDriver browser;
+//    private WebDriver browser;
+
     private WebDriverWait wait;
-
+    private BaseFunc baseFunc = new BaseFunc();
     @Test
     public void reservationCheck() {
-        System.setProperty("webdriver.chrome.driver", "C://chromedriver.exe");
-        browser = new ChromeDriver();
-        browser.manage().window().maximize();
-        browser.get("http://www.qaguru.lv:8089/tickets/");
+        baseFunc.openUrl("http://www.qaguru.lv:8089/tickets/");
 
-        wait = new WebDriverWait(browser, Duration.ofSeconds(10));
+        baseFunc.select(FROM, "RIX");
+        baseFunc.select(TO,"SFO");
 
-        select(FROM, "RIX");
-        select(TO,"SFO");
-
-        browser.findElement(GO_BTN).click();
+        baseFunc.click(GO_BTN);
         //Assertions.assertEquals("RIX", DESTANATION_FROM), "not found");
 
 //        Select airportFrom = new Select(browser.findElement(FROM));
@@ -57,18 +58,31 @@ public class TicketsTests {
 
 
 
-        type(FIRST_NAME, "First Name");
-        type(LAST_NAME, "Last Name");
-        type(DISCOUNT, "Discount Code");
-        type(ADULTS, "3");
-        type(CHILDREN, "2");
-        type(BAG, "1");
-        select(FLIGHT, "16");
+        baseFunc.type(FIRST_NAME, "First Name");
+        baseFunc.type(LAST_NAME, "Last Name");
+        baseFunc.type(DISCOUNT, "Discount Code");
+        baseFunc.type(ADULTS, "3");
+        baseFunc.type(CHILDREN, "2");
+        baseFunc.type(BAG, "1");
+        baseFunc.select(FLIGHT, "16");
 
         //====================  homewok start
-        browser.findElement(GET_PRICE_BTN).click();
-        compare("RIX", DESTANATION_FROM);
-        compare("SFO", DESTANATION_TO);
+        baseFunc.click(GET_PRICE_BTN);
+        baseFunc.compare("RIX", DESTANATION_FROM);
+        baseFunc.compare("SFO", DESTANATION_TO);
+        baseFunc.findElement(RESPONSE_TEXT);
+        baseFunc.compare(
+                0,
+                baseFunc.getValueFromText(RESPONSE_TEXT, "for "," EUR"),
+                false
+        );
+        baseFunc.click(BOOK_BTN);
+        baseFunc.compare(
+                32,
+                baseFunc.findElements(SEAT_ELEMENT).size(),
+                true
+        );
+
 //        Assertions.assertEquals("RIX", browser.findElement(DESTANATION_FROM).getText());
 //        Assertions.assertEquals("SFO", browser.findElement(DESTANATION_TO).getText());
 // https://youtu.be/fm_7RFDKN0k?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=2043 working with list items
@@ -85,21 +99,4 @@ public class TicketsTests {
 
 
     }
-    private  void select(By locator, String value) {
-        WebElement we = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-        Select select = new Select(we);
-        select.selectByValue(value);
-    }
-
-
-    private void type(By locator, String text) {
-    WebElement input = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-    input.clear();
-    input.sendKeys(text);
-    }
-
-    private void compare(String text, By locator) {
-        Assertions.assertEquals(text, browser.findElement(locator).getText());
-    }
-    
 }
