@@ -12,6 +12,8 @@ import pageobject.BaseFunc;
 
 import java.time.Duration;
 
+import static java.lang.Integer.parseInt;
+
 public class TicketsTests {
     private final By FROM = By.id("afrom");
     private final By TO = By.id("bfrom");
@@ -32,7 +34,9 @@ public class TicketsTests {
     private final By RESPONSE_TEXT = By.id("response");
     private final By BOOK_BTN = By.id("book2");
     private final By SEAT_ELEMENT = By.cssSelector(".seat");
-
+    private final By SELECTED_SEAT = By.xpath(".//div[@class= 'line']");
+    private final By BOOK_BTN_FINAL = By.id("book3");
+    private final By FINAL_REG_TEXT = By.xpath(".//div[@class= 'finalTxt']");
 
 
 
@@ -82,7 +86,12 @@ public class TicketsTests {
                 baseFunc.findElements(SEAT_ELEMENT).size(),
                 true
         );
-
+        baseFunc.findAndClick("15", SEAT_ELEMENT);
+        baseFunc.compare(15,
+                parseInt(baseFunc.findElement(SELECTED_SEAT).getText().substring(14)),
+                true);
+        baseFunc.click(BOOK_BTN_FINAL);
+        Assertions.assertEquals(baseFunc.findElement(FINAL_REG_TEXT).getText(), "Thank You for flying with us!");
 //        Assertions.assertEquals("RIX", browser.findElement(DESTANATION_FROM).getText());
 //        Assertions.assertEquals("SFO", browser.findElement(DESTANATION_TO).getText());
 // https://youtu.be/fm_7RFDKN0k?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=2043 working with list items

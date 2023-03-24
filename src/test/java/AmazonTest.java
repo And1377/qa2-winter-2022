@@ -92,7 +92,7 @@ public class AmazonTest {
     }
 
     //
-    //https://youtu.be/uWnfiI9CL1g?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=3746
+//    https://youtu.be/uWnfiI9CL1g?list=PL29imBtAdLy-9H5wHMT0BRF4RziIQuAEr&t=3746
     private void openMenuItem(String itemName, By locator) {
         List<WebElement> menuItems = browser.findElements(locator);
         for (WebElement we : menuItems) {

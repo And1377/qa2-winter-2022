@@ -18,6 +18,10 @@ public class BaseFunc {
     private WebDriver browser;
     private WebDriverWait wait;
 
+    public WebDriver getBrowser() {
+        return browser;
+    }
+
     public BaseFunc() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
@@ -88,5 +92,15 @@ public class BaseFunc {
 
     public void compare(String text, By locator) {
         Assertions.assertEquals(text, browser.findElement(locator).getText());
+    }
+
+    public void findAndClick(String itemName, By locator) {
+        List<WebElement> menuItems = browser.findElements(locator);
+        for (WebElement we : menuItems) {
+            if (we.getText().equals(itemName)) {
+                we.click();
+                break;
+            }
+        }
     }
 }
